@@ -2,9 +2,11 @@ import React from "react";
 import BackgroundVideo from "./BackgroundVideo";
 import LogoComponent from "./LogoComponent";
 import Link from "next/link";
+import Footer from "./Footer";
 
 const HeroSection = () => {
   return (
+    <>
     <section className="relative w-full h-screen bg-gray-900 overflow-hidden">
       <BackgroundVideo />
 
@@ -36,6 +38,8 @@ const HeroSection = () => {
     </div> */}
       </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 
