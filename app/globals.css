@@ -11,3 +11,20 @@ body {
 .input-styles{
   @apply bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none block w-full p-2.5
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000; /* Tailwind's gray-800 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #282a4d6d; /* Tailwind's indigo-600 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1; /* Tailwind's indigo-500 */
+}
