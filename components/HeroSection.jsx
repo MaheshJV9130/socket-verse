@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 const HeroSection = () => {
   return (
+    <>
     <section className="relative w-full h-screen bg-gray-900 overflow-hidden">
       <BackgroundVideo />
 
@@ -37,6 +38,8 @@ const HeroSection = () => {
     </div> */}
       </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ body {
     font-weight: 400;
     background-color: #1a202c;
     color: white;
+    overflow-x: hidden;
 }
 
 .input-styles{
