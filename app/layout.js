@@ -1,5 +1,7 @@
 import { Inter} from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
+import { Slide, ToastContainer } from "react-toastify";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +23,21 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.variable} antialiased`}
       >
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Slide}
+        />
         {children}
+        <Footer/>
       </body>
     </html>
   );

@@ -18,14 +18,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000; /* Tailwind's gray-800 */
+  background: transparent; /* Tailwind's gray-800 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #282a4d6d; /* Tailwind's indigo-600 */
+  background: transparent; /* Tailwind's indigo-600 */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1; /* Tailwind's indigo-500 */
+  background: transparent; /* Tailwind's indigo-500 */
+}
+
+
+.container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: #172554; /* Tailwind's gray-800 */
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: white; /* Tailwind's indigo-600 */
+  border-radius: 10px;
 }
