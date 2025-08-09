@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sendEmail from "../lib/emailSender.js";
 import genOtp from "../lib/one-time-pass.js";
+
 const router = express.Router();
 
 // Sign Up Route

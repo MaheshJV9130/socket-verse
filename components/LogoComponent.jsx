@@ -12,7 +12,7 @@ const LogoComponent = ({size = 80 , font = '5xl'}) => {
       priority
         width={size}
         height={size}
-        className={`md:w-[${size}] md:h-[${size}] w-12 h-12 mr-2 rounded-full`}
+        className={`md:w-[${size}] md:h-[${size}] w-10 h-10 mr-2 rounded-full`}
         src="/socket-verse.jpg"
         alt="logo"
       />

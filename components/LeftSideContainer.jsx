@@ -1,0 +1,37 @@
+'use client'
+import React from 'react'
+import Navbar from './LeftSideComponents/Navbar'
+import FriendComponent from './LeftSideComponents/FriendComponent'
+
+const LeftSideContainer = ({onclick}) => {
+  return (
+   <div className="w-screen lg:w-[30vw] h-full bg-blue-950 ">
+        <Navbar />
+
+        <div className="w-full  p-4 mx-auto  h-full rounded-lg shadow-sm sm:p-8 ">
+          <ol className="flex justify-evenly gap-5  mb-4 items-center">
+            <span className="cursor-pointer text-xs font-medium me-2 px-2.5 py-0.5 rounded-xs bg-gray-700 text-gray-300">
+             Friends {12}
+            </span>
+            <span className="cursor-pointer text-xs font-medium me-2 px-2.5 py-0.5 rounded-xs bg-gray-700 text-gray-300">
+              Groups {8}
+            </span>
+          </ol>
+          <div className="flow-root w-full  h-[80%] ">
+            <ul
+              role="list"
+              className="divide-y w-full divide-gray-200 dark:divide-gray-700 overflow-y-scroll max-h-full container mb-12"
+            >
+            {/* FriendList here  */}
+            <FriendComponent onclick={onclick}/>
+            
+            <FriendComponent onclick={onclick} msg='Last hu bhai'/>
+            {}
+            </ul>
+          </div>
+        </div>
+      </div>
+  )
+}
+
+export default LeftSideContainer

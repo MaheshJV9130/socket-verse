@@ -1,8 +1,11 @@
-import React from "react";
-import FriendList from "./FriendList";
+'use client'
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { MdOutlinePermMedia } from 'react-icons/md';
-const ControlPanel = () => {
+import { AiOutlineClose } from "react-icons/ai";
+import MediaDrawer from "./MediaDrawer";
+
+const ChatHeader = ({mediaDrawer , isDrawer}) => {
+
   return (
     <div className="p-4 flex justify-between items-center bg-slate-950">
       <div className="flex items-center">
@@ -17,18 +20,19 @@ const ControlPanel = () => {
           <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
             Mark Bhai
           </p>
+          <p className="text-sm text-gray-600">online</p>
         </div>
       </div>
       <div className="flex justify-evenly gap-5 items-center">
-        <button className="hover:bg-gray-800 p-2 rounded-xs">
+        <button className="hover:bg-gray-800 p-2 rounded-xl" title="Search in chat">
           <BsSearch size={25} />
         </button>
-        <button className="hover:bg-gray-800 p-2 rounded-xs">
-            <MdOutlinePermMedia size={25}/>
+        <button className="hover:bg-gray-800 p-2 rounded-xl" title="Media" onClick={()=>mediaDrawer(prev=>!prev)}>
+            {!isDrawer ?<img src="/folder.png" alt="media" width={25} height={25} className="invert-100"/>:<AiOutlineClose size={25} title="close"/>}
         </button>
       </div>
     </div>
   );
 };
 
-export default ControlPanel;
+export default ChatHeader;

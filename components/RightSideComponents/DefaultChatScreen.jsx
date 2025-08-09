@@ -1,6 +1,4 @@
 import React from "react";
-import BackgroundVideo from "./BackgroundVideo";
-import LogoComponent from "./LogoComponent";
 import Image from "next/image";
 
 const DefaultChatScreen = () => {

@@ -44,10 +44,10 @@ const features = [
 
 const ExplorePage = () => {
   return (
-    <section className="relative w-full h-screen bg-gray-900 overflow-y-scroll">
-      <BackgroundVideo />
+    <section className="relative w-full h-screen bg-blue-950 overflow-y-scroll">
+    
       {/* Banner */}
-      <div className="z-10 absolute top-0 right-0 w-full h-full ">
+      <div className="z-10 absolute top-0 right-0 w-full h-full">
         <div className="text-center max-w-4xl mx-auto flex justify-center items-center flex-col mt-10">
           <LogoComponent />
           <p className="text-gray-200 text-sm md:text-xl font-semibold mt-2">

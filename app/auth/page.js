@@ -132,7 +132,7 @@ const LoginPage = () => {
     if (e.target.files[0].size > MAX_FILE_SIZE) {
       setError("profile", { message: "File size must be less than 2MB" });
       setTimeout(() => {
-        clearErrors()
+        clearErrors();
       }, 1500);
     } else {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
@@ -156,14 +156,14 @@ const LoginPage = () => {
         <LogoComponent />
 
         {/* Login form */}
-        <div className="w-full bg-gray-800/50 backdrop-blur-md rounded-lg shadow border border-gray-700 sm:max-w-md xl:p-0">
+        <div className="w-full bg-gray-800/50 backdrop-blur-md mt-5 rounded-lg shadow border m border-gray-700 sm:max-w-md xl:p-0">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl">
               {isLoginStatus ? "Log in to your account" : "Sign up"}
             </h1>
 
             <form
-              className="space-y-2 md:space-y-4"
+              className="space-y-2 md:space-y-4 "
               onSubmit={handleSubmit(onSubmit)}
             >
               {!isLoginStatus && (

@@ -1,13 +1,14 @@
 import React from "react";
 import { BsSearch } from 'react-icons/bs';
-import ChatToolBar from "./ChatToolBar";
+
+import NavToolBar from "./NavToolBar";
 
 const Navbar = () => {
   return (
-    <header>
+   
       <nav>
         <ul>
-          <ChatToolBar/>
+          <NavToolBar/>
           <li className="flex justify-center items-center mt-4 border-2 w-fit mx-auto rounded-xl ">
             <input
               type="text"
@@ -20,7 +21,7 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
-    </header>
+  
   );
 };
 

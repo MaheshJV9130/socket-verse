@@ -12,7 +12,7 @@ const inter = Inter({
 
 
 export const metadata = {
-  title: "SocketVerse - Home",
+  title: "SocketVerse",
   description: "Nothing",
 };
 
@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
           transition={Slide}
         />
         {children}
-        <Footer/>
+        {/* <Footer/> */}
       </body>
     </html>
   );

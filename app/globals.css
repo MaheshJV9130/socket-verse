@@ -3,14 +3,15 @@
 body {
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-weight: 400;
-    background-color: #1a202c;
-    color: white;
-    overflow-x: hidden;
+  font-weight: 400;
+  background-color: #1a202c;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.input-styles{
-  @apply bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none block w-full p-2.5
+.input-styles {
+  @apply bg-gray-700 border border-gray-600 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none block w-full p-2.5;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -30,7 +31,6 @@ body {
   background: transparent; /* Tailwind's indigo-500 */
 }
 
-
 .container::-webkit-scrollbar {
   width: 5px;
 }
@@ -43,3 +43,22 @@ body {
   background: white; /* Tailwind's indigo-600 */
   border-radius: 10px;
 }
+
+.chatScroll::-webkit-scrollbar {
+  width: 4px;
+  height: 8px;
+}
+
+.chatScroll::-webkit-scrollbar-track {
+  background: transparent; /* Tailwind's gray-800 */
+}
+
+.chatScroll::-webkit-scrollbar-thumb {
+  background: white; /* Tailwind's indigo-600 */
+  border-radius: 10px;
+}
+
+.chatScroll::-webkit-scrollbar-thumb:hover {
+  background: transparent; /* Tailwind's indigo-500 */
+}
+
