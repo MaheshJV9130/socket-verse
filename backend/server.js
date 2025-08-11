@@ -10,6 +10,7 @@ import { configDotenv } from "dotenv";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
+import {v2 as cloudinary} from 'cloudinary'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const env = path.join(__dirname , '.env')
@@ -20,13 +21,22 @@ const corsOption = {
     methods:['GET','POST'],
     credentials:true
 }
+
 const io = new Server(server,{cors:corsOption});
 configDotenv({path:env})
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(cors(corsOption))
 app.use('/auth',Auth)
 app.use('/user',User)
+
+
+cloudinary.config({ 
+  cloud_name: process.env.CLD_NAME, 
+  api_key: process.env.CLD_API_KEY, 
+  api_secret: process.env.CLD_API_SECRET
+});
 
 io.on("connection", (socket) => {
   
@@ -34,10 +44,34 @@ io.on("connection", (socket) => {
 });
 
 
-app.get("/", (req, res) => {
-  res.send("Hello");
+app.get("/", async(req, reply) => {
+console.log('Uploading files from the browser');
+  try {
+    const data = await req.file();
+
+    const buffer = await data.toBuffer();
+    await new Promise((resolve) => {
+      cloudinary.uploader
+        .upload_chunked_stream({ tags }, (error, uploadResult) => {
+          if (error) {
+            reply.code(500).send({ error: 'Failed to upload image' });
+          } else {
+            resolve(uploadResult);
+            reply.send({
+              url: uploadResult.secure_url,
+              public_id: uploadResult.public_id,
+            });
+          }
+        })
+        .end(buffer);
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
+
+  
 server.listen(8080, () => {
   console.log("Runnings");
 });

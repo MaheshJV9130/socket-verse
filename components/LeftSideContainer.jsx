@@ -23,9 +23,7 @@ const LeftSideContainer = ({onclick}) => {
               className="divide-y w-full divide-gray-200 dark:divide-gray-700 overflow-y-scroll max-h-full container mb-12"
             >
             {/* FriendList here  */}
-            <FriendComponent onclick={onclick}/>
             
-            <FriendComponent onclick={onclick} msg='Last hu bhai'/>
             {}
             </ul>
           </div>
