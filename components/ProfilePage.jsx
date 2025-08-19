@@ -6,7 +6,6 @@ const ProfilePage = () => {
   const auth = useSelector((state) => state.auth);
   const [username, setUsername] = useState('')
   const [bio, setBio] = useState('')
-  console.log(auth);
   
   useEffect(() => {
     setUsername(auth.username)

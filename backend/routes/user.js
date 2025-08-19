@@ -1,4 +1,33 @@
-import express from 'express'
-const router = express.Router()
+import express from "express";
+import User from "../models/User.js";
+import connectDatabase from "../lib/database.js";
+const router = express.Router();
 
-router.get('/')
+router.get("/friends", async (req, res) => {
+  try {
+    connectDatabase();
+    const user = await User.findById(req.user.id)
+      .populate("friends", "username profilePic email")
+      .lean();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user.friends);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.post("/find-friend", async (req, res) => {
+  const username = req.body.username
+  connectDatabase()
+
+  const users = await User.find({username : username})
+
+
+    res.send(users)
+
+});
+export default router;

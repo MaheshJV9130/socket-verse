@@ -63,6 +63,7 @@ const NavToolBar = () => {
       </div>
       <ol className="flex justify-evenly gap-1 md:gap-2">
         <button
+        onClick={()=>router.push('/search')}
           type="button"
           className="relative inline-flex items-center p-2 text-sm font-medium text-center text-white cursor-pointer "
           title="Find Friends"

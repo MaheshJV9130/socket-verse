@@ -6,20 +6,22 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { setUser } from "@/redux/authSlice";
 import jwtToUserData from "@/utils/jwtDecoder";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
- const getUserdata = async()=>{
-  const req = await fetch(`${process.env.BACKEND_URL}/` , {method:'POST'})
-  cons
- }
+  const [friends, setFriends] = useState([])
+  const auth = useSelector((state) => state.auth);
+
+ 
   const dispatch = useDispatch();
   useEffect(() => {
-    const getUerData = jwtToUserData();
-    if (getUerData) {
-      dispatch(setUser(getUerData));
+    const getUserData = jwtToUserData();
+    if (getUserData) {
+      dispatch(setUser(getUserData));
+     
       
     }
+
   }, []);
 
   const [view, setView] = useState(false);
