@@ -39,9 +39,11 @@ router.post("/signup", upload.single("profile"), async (req, res) => {
         username: username,
         profilePic: profileURL,
       });
-      await createNewUser.save();
+      const savedUser = await createNewUser.save();
+      const savedUserId =  savedUser._id.toString()
+  
       const token = jwt.sign(
-        { email: email, username: username, profilePic : profileURL },
+        { email: savedUser.email, username: savedUser.username, profilePic : savedUser.profilePic , id: savedUserId },
         process.env.JWT_KEY
       );
       res.cookie("sessionId", token);
@@ -51,7 +53,7 @@ router.post("/signup", upload.single("profile"), async (req, res) => {
 });
 router.post("/login",upload.none(), async (req, res) => {
 const {username , password} = req.body
-
+  
   await connectDatabase();
   const checkUsername = await User.findOne({ username: username });
   if (!checkUsername) {
@@ -64,8 +66,8 @@ const {username , password} = req.body
         {
           email: checkUsername.email,
           username: checkUsername.username,
-          profilePic : checkUsername.profilePic
-          
+          profilePic : checkUsername.profilePic,
+          id : checkUsername._id.toString()
         },
         process.env.JWT_KEY
       );

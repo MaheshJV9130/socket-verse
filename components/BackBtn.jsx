@@ -7,7 +7,7 @@ const BackBtn = () => {
   const router = useRouter();
   const path = usePathname();
 
-  if (path == "/profile") {
+  if (path == "/profile" || path == '/search') {
     return (
       <div
         className="absolute left-[5%] top-[5%]"

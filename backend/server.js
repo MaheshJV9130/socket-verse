@@ -4,13 +4,14 @@ import { Server } from "socket.io";
 import cors from 'cors'
 import bodyParser from "body-parser";
 import Auth from './routes/Auth.js'
-import User from './routes/getUserData.js'
+import user from './routes/user.js'
 import path from "node:path";
 import { configDotenv } from "dotenv";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from 'cloudinary'
+import verifyJWT from "./middleware/verifyJWT.js";
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const env = path.join(__dirname , '.env')
@@ -29,7 +30,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.use(cors(corsOption))
 app.use('/auth',Auth)
-app.use('/user',User)
+app.use('/user',verifyJWT,user)
+
 
 
 cloudinary.config({ 
@@ -45,7 +47,7 @@ io.on("connection", (socket) => {
 
 
 app.get("/", async(req, reply) => {
-console.log('Uploading files from the browser');
+
   try {
     const data = await req.file();
 
