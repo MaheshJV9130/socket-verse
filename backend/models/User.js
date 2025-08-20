@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    otp:{
+      type:Number,
+
+    },
+    otpExpiry:{
+      type:Date
+    },
     friends: [
       {
         type: mongoose.Schema.Types.ObjectId,

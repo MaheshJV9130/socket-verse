@@ -38,12 +38,16 @@ const LeftSideContainer = ({onclick}) => {
             >
             {/* FriendList here  */}
             
-            {
-              friends.length === 0 ? <p className='text-center text-red-500 font-medium '>No Friends Yet</p> :
-              friends.map((friend , index)=>(
-                <FriendComponent/>
+            
+            {friends.length === 0 ? (
+              <p className="text-center text-red-500 font-medium">
+                No Friends Yet
+              </p>
+            ) : (
+              friends.map((user, idx) => (
+                <FriendComponent key={user._id || idx} user={user} />
               ))
-            }
+            )}
             </ul>
           </div>
         </div>

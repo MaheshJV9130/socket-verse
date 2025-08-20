@@ -27,7 +27,7 @@ router.post("/signup", upload.single("profile"), async (req, res) => {
     } else {
       // Hash the pass
       const hash = await passToHash(password);
-      
+
       let profileURL =
         "https://res.cloudinary.com/socket-verse/image/upload/v1754719102/default_s7y0zy.webp";
       if (file) {
@@ -40,10 +40,15 @@ router.post("/signup", upload.single("profile"), async (req, res) => {
         profilePic: profileURL,
       });
       const savedUser = await createNewUser.save();
-      const savedUserId =  savedUser._id.toString()
-  
+      const savedUserId = savedUser._id.toString();
+
       const token = jwt.sign(
-        { email: savedUser.email, username: savedUser.username, profilePic : savedUser.profilePic , id: savedUserId },
+        {
+          email: savedUser.email,
+          username: savedUser.username,
+          profilePic: savedUser.profilePic,
+          id: savedUserId,
+        },
         process.env.JWT_KEY
       );
       res.cookie("sessionId", token);
@@ -51,9 +56,9 @@ router.post("/signup", upload.single("profile"), async (req, res) => {
     }
   }
 });
-router.post("/login",upload.none(), async (req, res) => {
-const {username , password} = req.body
-  
+router.post("/login", upload.none(), async (req, res) => {
+  const { username, password } = req.body;
+
   await connectDatabase();
   const checkUsername = await User.findOne({ username: username });
   if (!checkUsername) {
@@ -66,8 +71,8 @@ const {username , password} = req.body
         {
           email: checkUsername.email,
           username: checkUsername.username,
-          profilePic : checkUsername.profilePic,
-          id : checkUsername._id.toString()
+          profilePic: checkUsername.profilePic,
+          id: checkUsername._id.toString(),
         },
         process.env.JWT_KEY
       );
@@ -126,7 +131,8 @@ router.post("/verify-otp", async (req, res) => {
       {
         email: findUser.email,
         username: findUser.username,
-        password: findUser.hash,
+        profilePic: findUser.profilePic,
+        id: findUser._id.toString(),
       },
       process.env.JWT_KEY
     );

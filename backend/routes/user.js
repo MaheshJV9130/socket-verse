@@ -4,7 +4,7 @@ import connectDatabase from "../lib/database.js";
 const router = express.Router();
 
 router.get("/friends", async (req, res) => {
-  try {
+    
     connectDatabase();
     const user = await User.findById(req.user.id)
       .populate("friends", "username profilePic email")
@@ -14,10 +14,7 @@ router.get("/friends", async (req, res) => {
     }
 
     res.json(user.friends);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
+  
 });
 
 router.post("/find-friend", async (req, res) => {
@@ -25,8 +22,7 @@ router.post("/find-friend", async (req, res) => {
   connectDatabase()
 
   const users = await User.find({username : username})
-
-
+  console.log(users)
     res.send(users)
 
 });
