@@ -2,14 +2,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import LogoComponent from "../LogoComponent";
-import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineLogout } from "react-icons/md";
 import Link from "next/link";
 import { Slide, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 const NavToolBar = () => {
+  const auth = useSelector((state) => state.auth);
+
   const componentRef = useRef(0);
   const [isMenu, setIsMenu] = useState(false);
   const router = useRouter();
@@ -60,8 +61,9 @@ const NavToolBar = () => {
       <div className="my-auto mr-2">
         <LogoComponent size={20} font="xl" />
       </div>
-      <ol className="flex justify-evenly  gap-1 md:gap-2">
+      <ol className="flex justify-evenly gap-1 md:gap-2">
         <button
+        onClick={()=>router.push('/search')}
           type="button"
           className="relative inline-flex items-center p-2 text-sm font-medium text-center text-white cursor-pointer "
           title="Find Friends"
@@ -82,11 +84,9 @@ const NavToolBar = () => {
           </div>
         </button>
         <button className="cursor-pointer" onClick={() => setIsMenu(!isMenu)}>
-          {isMenu ? (
-            <AiOutlineClose size={20} title="Close"/>
-          ) : (
-            <BsThreeDotsVertical size={20}title="Menu"/>
-          )}
+
+           <img src={auth.profilePic} className='rounded-full object-cover w-10 h-10'alt='profile'/>
+         
         </button>
       </ol>
       {isMenu && (

@@ -13,6 +13,8 @@ import Image from "next/image";
 const LoginPage = () => {
   const [isLoginStatus, setIsLoginStatus] = useState(false);
   const [profilePic, setProfilePic] = useState("/default.webp");
+  const [profilePicData, setProfilePicData] = useState(null)
+  const [authURL, setAuthURL] = useState("");
   const router = useRouter();
   const {
     register,
@@ -24,8 +26,14 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const signUp = async (email, username, password) => {
+  const AuthRequest = async (form) => {
+    const email = form.get("email");
+    const username = form.get("username");
     const disallowedRegex = /[^a-zA-Z0-9_]/;
+
+    let authURL = email
+      ? "http://localhost:8080/auth/signup"
+      : "http://localhost:8080/auth/login";
 
     if (disallowedRegex.test(username)) {
       setError("username", {
@@ -33,15 +41,10 @@ const LoginPage = () => {
           "Username can only contain letters, numbers, and underscores (no spaces or special characters).",
       });
     } else {
-      let req = await fetch("http://localhost:8080/auth/signup", {
+      let req = await fetch(authURL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          password: password,
-        }),
+        body: form,
       });
       req = await req.json();
       clearErrors("rootError");
@@ -76,56 +79,56 @@ const LoginPage = () => {
     }
   };
 
-  const login = async (username, password) => {
-    const disallowedRegex = /[^a-zA-Z0-9_]/;
+  // const login = async (username, password) => {
+  //   const disallowedRegex = /[^a-zA-Z0-9_]/;
 
-    if (disallowedRegex.test(username)) {
-      setError("username", {
-        message:
-          "Username can only contain letters, numbers, and underscores (no spaces or special characters).",
-      });
-    } else {
-      let req = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
-      });
-      req = await req.json();
+  //   if (disallowedRegex.test(username)) {
+  //     setError("username", {
+  //       message:
+  //         "Username can only contain letters, numbers, and underscores (no spaces or special characters).",
+  //     });
+  //   } else {
+  //     let req = await fetch("http://localhost:8080/auth/login", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       credentials: "include",
+  //       body: JSON.stringify({
+  //         username: username,
+  //         password: password,
+  //       }),
+  //     });
+  //     req = await req.json();
 
-      if (req.status === 404) {
-        toast.error(req.message, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
-      } else {
-        toast.success(req.message, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
-        setTimeout(() => {
-          router.push("/");
-        }, 700);
-      }
-    }
-  };
+  //     if (req.status === 404) {
+  //       toast.error(req.message, {
+  //         position: "top-right",
+  //         autoClose: 1500,
+  //         hideProgressBar: false,
+  //         closeOnClick: false,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "dark",
+  //         transition: Slide,
+  //       });
+  //     } else {
+  //       toast.success(req.message, {
+  //         position: "top-right",
+  //         autoClose: 1500,
+  //         hideProgressBar: false,
+  //         closeOnClick: false,
+  //         pauseOnHover: true,
+  //         draggable: true,
+  //         progress: undefined,
+  //         theme: "dark",
+  //         transition: Slide,
+  //       });
+  //       setTimeout(() => {
+  //         router.push("/");
+  //       }, 700);
+  //     }
+  //   }
+  // };
   const handleProfile = (e) => {
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
@@ -136,17 +139,17 @@ const LoginPage = () => {
       }, 1500);
     } else {
       setProfilePic(URL.createObjectURL(e.target.files[0]));
+      setProfilePicData(e.target.files[0])
     }
   };
 
   const onSubmit = async (data) => {
-    const { email, username, password } = data;
-
-    if (!email) {
-      login(username, password);
-    } else {
-      signUp(email, username, password);
+    const form = new FormData();
+    for (const key in data) {
+      form.append(key, data[key]);
     }
+    form.append('profile',profilePicData)
+    AuthRequest(form);
   };
 
   return (
@@ -165,6 +168,7 @@ const LoginPage = () => {
             <form
               className="space-y-2 md:space-y-4 "
               onSubmit={handleSubmit(onSubmit)}
+              encType="application/x-www-form-urlencoded"
             >
               {!isLoginStatus && (
                 <div>
@@ -172,12 +176,11 @@ const LoginPage = () => {
                     htmlFor="profile"
                     className="block mb-2 text-sm font-medium text-white"
                   >
-                    <Image
+                    <img
                       src={profilePic}
-                      className="rounded-full  mx-auto cursor-pointer"
+                      className="rounded-full w-28 h-28 object-cover mx-auto cursor-pointer"
                       alt="profilePic"
-                      width={100}
-                      height={100}
+                      
                     />
                   </label>
                   <input
